@@ -38,8 +38,10 @@ EXTRAPOLATE.LINEAR = (function() {
         if (key<min) { preMin = min; min = key; }
         if (key<preMin && key>min) { preMin = key; }
       }
-      //this is used if we want to extrapolate near the end
+
+      //this is redefined if we want to extrapolate near the ends of the evidence set
       var baseValueIndex = closeMin; 
+
       if (closeMax===Infinity) { 
         closeMax = max; 
         closeMin = preMax;
@@ -50,9 +52,6 @@ EXTRAPOLATE.LINEAR = (function() {
         closeMin = min;
         baseValueIndex = min;
       }
-
-      console.log("cma "+closeMax);
-      console.log("cmi "+closeMin);
 
       var delta = closeMax - closeMin;
       var valDelta = this.evidence[closeMax] - this.evidence[closeMin];
