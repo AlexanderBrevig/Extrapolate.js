@@ -8,32 +8,25 @@
   <script src="../extrapolate.js"></script>
   <script>
     var extrapolate = new EXTRAPOLATE.LINEAR();
-    extrapolate.given(0).get(0);
-    extrapolate.given(1).get(2);
-    extrapolate.given(2).get(4);
-    extrapolate.given(4).get(8);
-    extrapolate.given(5).get(10);
+    extrapolate.given(1).get(1);
+    extrapolate.given(4).get(16);
+    extrapolate.given(8).get(64);
 
 
     function demoExtrapolationFor(val) {
-        document.write(val + " -> " + extrapolate.valueFor(val));
+        document.write(val + "\t->\t" + extrapolate.valueFor(val) + "\t~ " + (val*val));
         document.write("<br />");
     }
-    document.write("We have provided evidence for a simple f(x) = 2x function which yields these results: <br />");
+    document.write("We have provided the following evidence for a <b>NON LINEAR</b> f(x) = x^2 function:<br />1=1, 4=16, 8=64; which yields these approximations: (more evidence==better accuracy)<br />");
     document.write("<pre>");
-    demoExtrapolationFor(-1);
-    demoExtrapolationFor(0);
     demoExtrapolationFor(1);
-    demoExtrapolationFor(2);
-    demoExtrapolationFor(3);
+    demoExtrapolationFor(1.5);
     demoExtrapolationFor(4);
     demoExtrapolationFor(5);
     demoExtrapolationFor(6);
     demoExtrapolationFor(7);
     demoExtrapolationFor(8);
     demoExtrapolationFor(9);
-    demoExtrapolationFor(10);
-    demoExtrapolationFor(11);
     document.write("</pre>");
   </script>
 </body>
