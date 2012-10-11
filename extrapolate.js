@@ -16,10 +16,15 @@ EXTRAPOLATE.LINEAR = (function() {
     };
   
     EXTRAPOLATE.prototype.valueFor = function(sample) {
+      if (this.evidence[sample]!==undefined) {
+        return this.evidence[sample];
+      }
       var closeMin = -Infinity,
           closeMax = Infinity,
           max = -Infinity,
           preMax = -Infinity,
+          min = Infinity,
+          preMin = Infinity,
           key;
       // find min and max
       for (key in this.evidence) { 
@@ -30,6 +35,8 @@ EXTRAPOLATE.LINEAR = (function() {
           closeMax = key;
         }
         if (key>max) { preMax= max; max = key; }
+        if (key<min) { preMin = min; min = key; }
+        if (key<preMin && key>min) { preMin = key; }
       }
       //this is used if we want to extrapolate near the end
       var baseValueIndex = closeMin; 
@@ -38,6 +45,15 @@ EXTRAPOLATE.LINEAR = (function() {
         closeMin = preMax;
         baseValueIndex = max;
       }
+      if (closeMin===-Infinity) { 
+        closeMax = preMin; 
+        closeMin = min;
+        baseValueIndex = min;
+      }
+
+      console.log("cma "+closeMax);
+      console.log("cmi "+closeMin);
+
       var delta = closeMax - closeMin;
       var valDelta = this.evidence[closeMax] - this.evidence[closeMin];
 
