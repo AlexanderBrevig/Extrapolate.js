@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset=utf-8 />
+  <title>Extrapolate.js</title>
+</head>
+<body>
+  <script src="../extrapolate.js"></script>
+  <script>
+    var extrapolate = new EXTRAPOLATE.LINEAR();
+    extrapolate.given(0).get(0);
+    extrapolate.given(1).get(2);
+    extrapolate.given(2).get(4);
+    extrapolate.given(4).get(8);
+    extrapolate.given(5).get(10);
+
+
+    function demoExtrapolationFor(val) {
+        document.write(val + " -> " + extrapolate.valueFor(val));
+        document.write("<br />");
+    }
+    document.write("We have provided values for a simple f(x) = 2x function which yields these results: <br />");
+    demoExtrapolationFor(1);
+    demoExtrapolationFor(2);
+    demoExtrapolationFor(3);
+    demoExtrapolationFor(4);
+    demoExtrapolationFor(5);
+    demoExtrapolationFor(6);
+    demoExtrapolationFor(7);
+    demoExtrapolationFor(8);
+    demoExtrapolationFor(9);
+    demoExtrapolationFor(10);
+    demoExtrapolationFor(11);
+  </script>
+</body>
+</html>
