@@ -14,3 +14,8 @@ After the library is included, you could do something like this:
     extrapolate.given(2).get(4);
     extrapolate.given(4).get(8);
     extrapolate.given(5).get(10);
+    
+    extrapolate.valueFor(-1); // -2
+    extrapolate.valueFor(0);  // 0
+    extrapolate.valueFor(1);  // 2
+    extrapolate.valueFor(6);  // 12
