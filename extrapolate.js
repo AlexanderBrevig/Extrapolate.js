@@ -63,4 +63,48 @@ EXTRAPOLATE.LINEAR = (function() {
     return EXTRAPOLATE;
 })();
 
-//TODO: implement polynomial extrapolation
+EXTRAPOLATE.POLYNOMIAL = (function() {
+	//TODO: Merge both methods and let the user decide when they use valuefor
+    function EXTRAPOLATE(data) {
+      this.evidence = {};
+    }
+
+    EXTRAPOLATE.prototype.given = function(sample) {
+	  //TODO: check for duplicate samples
+      this.evidence[sample] = {};
+      var ret = {};
+      ret.get = function(result) {
+        this.get.this.evidence[sample] = result;
+      };
+      ret.get.this = this;
+      return ret;
+    };
+  
+    EXTRAPOLATE.prototype.valueFor = function(sample) {
+		var keys = Object.keys(this.evidence);
+		
+		if(keys.length < 2)
+			throw 'At least two samples are required';
+
+		var output = 0;
+		for(var i = 0; i < keys.length; ++i)
+		{
+			var xi = keys[i];
+			var yi = this.evidence[xi];
+			var innerproduct = 1;
+
+			for(var j = 0; j < keys.length; ++j)
+			{
+				if(i == j)
+					continue;
+				var xj = keys[j];
+				innerproduct *= (sample - xj) / (xi - xj);
+			}
+			output += innerproduct * yi;
+		}
+
+		return output;	
+	};
+
+	return EXTRAPOLATE;
+})();
